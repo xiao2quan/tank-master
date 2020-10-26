@@ -17,9 +17,10 @@ public class TankFrame extends Frame {
     //当时没有导入util包时提示不能带入参数，这个是多态的概念，多了解多态的知识
     List<Bullet> bullets = new ArrayList<>();
     List<Tank> enemyTanks = new ArrayList<>();
-    Explode e = new Explode(100,100,this);
+    List<Explode> explodes = new ArrayList<>();
+//    Explode e = new Explode(100,100,this);
 
-    static final int GAME_WIDTH = 800,GAME_HEIGTH = 600;
+    static final int GAME_WIDTH = 1080,GAME_HEIGTH = 960;
 
     private int SPEED = 10;
     //这里自己就是一个窗口，把自己显示出来就行了
@@ -67,6 +68,8 @@ public class TankFrame extends Frame {
         g.setColor(Color.WHITE);
         g.drawString("bullet num:" + bullets.size(),10,60);
         g.drawString("enemy tanks num:" + enemyTanks.size(),10,80);
+        g.drawString("explode num:" + enemyTanks.size(),10,100);
+
         g.setColor(c);//恢复现场，就是保存原来的颜色
         myTank.paint(g);
 //        for(Bullet b : bullets)
@@ -81,12 +84,15 @@ public class TankFrame extends Frame {
         for(int i = 0; i < enemyTanks.size(); i++){
             enemyTanks.get(i).paint(g);
         }
-
+        // 画出爆炸
+        for(int i = 0; i < explodes.size(); i++){
+            explodes.get(i).paint(g);
+        }
+        // 检测子弹和tank碰撞
         for(int i = 0; i < bullets.size();i++){
             for(int j = 0;j < enemyTanks.size();j++)
                 bullets.get(i).collide(enemyTanks.get(j));
         }
-        e.paint(g);
     }
 
 

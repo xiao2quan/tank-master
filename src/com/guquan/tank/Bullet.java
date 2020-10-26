@@ -6,15 +6,6 @@ public class Bullet {
     private final int SPEED = 10;
     private Dir dir;
     private int x,y;
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-
     private Group group = Group.BAD;
     public static int WIDTH = ResourceMgr.bulletD.getWidth(), HEIGHT = ResourceMgr.bulletD.getHeight();
     private boolean living = true;
@@ -77,6 +68,15 @@ public class Bullet {
             living = false;
 
     }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     public void collide(Tank tank){
         if(this.group == tank.getGroup()) return;
         // TODO:用一个rect来记录子弹的位置，这里循环一次new一个rect，new出来太多了
@@ -86,6 +86,8 @@ public class Bullet {
         if(rectBullet.intersects(rectTank)){
             tank.die();
             this.die();
+            tf.explodes.add(new Explode(x,y,tf));
+
         }
 
     }

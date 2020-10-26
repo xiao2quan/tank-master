@@ -15,14 +15,14 @@ public class Explode {
         this.x = x;
         this.y = y;
         this.tf = tf;
+        new Audio("audio/explode.wav").play();
     }
 
     // 让Bullet自己来绘制自己
     public void paint(Graphics g) {
         g.drawImage(ResourceMgr.explodes[step++],x,y,null);
         if(step >=ResourceMgr.explodes.length)
-            step = 0;
-
+        tf.explodes.remove(this);
     }
 }
 
