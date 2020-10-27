@@ -23,10 +23,6 @@ public class Bullet {
     public void paint(Graphics g){
         if(!living)
             tf.bullets.remove(this);
-//        Color c = g.getColor();
-//        g.setColor(Color.RED);
-//        g.fillOval(x,y,WIDTH,HEIGHT);
-//        g.setColor(c);
         switch (dir){
             case LEFT:
                 g.drawImage(ResourceMgr.bulletL,x,y,null);
@@ -86,11 +82,14 @@ public class Bullet {
         if(rectBullet.intersects(rectTank)){
             tank.die();
             this.die();
-            tf.explodes.add(new Explode(x,y,tf));
-
+            int eX = tank.getX() + Tank.WIDTH/2 -Explode.WIDTH/2;
+            int eY = tank.getY() + Tank.HEIGHT/2 -Explode.HEIGHT/2;
+//            tf.explodes.add(new Explode(x,y,tf));
+            tf.explodes.add(new Explode( eX,eY,tf));
         }
 
     }
+
     public void die(){
         this.living = false;
     }

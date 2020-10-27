@@ -5,8 +5,17 @@ import java.awt.*;
 public class Explode {
 
     private int x, y;
-//    public static int WIDTH = ResourceMgr.explodes[0].getWidth();
-//    public static int HEIGHT = ResourceMgr.explodes[0].getHeight();
+
+    public static int getWIDTH() {
+        return WIDTH;
+    }
+
+    public static int getHEIGHT() {
+        return HEIGHT;
+    }
+
+    public static int WIDTH = ResourceMgr.explodes[1].getWidth();
+    public static int HEIGHT = ResourceMgr.explodes[1].getHeight();
     private boolean living = true;
     TankFrame tf = null;
     private int step = 0;

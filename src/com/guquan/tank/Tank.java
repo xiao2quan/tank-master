@@ -7,7 +7,7 @@ public class Tank {
     //坦克应该有自己的属性
     private int x, y;
     private Dir dir = Dir.DOWN;
-    private int SPEED = 1;
+    private int SPEED = 10;
     private boolean moving = true;
     private boolean living = true;
     private Random random = new Random();
@@ -83,7 +83,6 @@ public class Tank {
             default:
                 break;
         }
-
         //根据方向进行移动
         move();
 
@@ -107,18 +106,42 @@ public class Tank {
             default:
                 break;
         }
-        if(random.nextInt(10) > 8) this.fire();
-//        randomDir();
+
+        // 发射子弹
+        if(this.group == Group.BAD && random.nextInt(100) > 95) this.fire();
+        if(this.group == Group.BAD && random.nextInt(100) > 95) randomDir();
+        boundsCheck();
+
+
     }
+
+    private void boundsCheck() {
+        if(this.x < 2) x = 2;
+        if(this.y < 30) y = 30;
+        if(this.x > TankFrame.GAME_WIDTH - Tank.WIDTH -2) x = TankFrame.GAME_WIDTH -  Tank.WIDTH -2;
+        if(this.y > TankFrame.GAME_HEIGTH - Tank.HEIGHT -2 ) y = TankFrame.GAME_HEIGTH - Tank.HEIGHT -2;
+
+
+    }
+
+    private void randomDir(){
+        // 产生四个随机数，然后映射到方向上，这是关键点。random.nextInt(4);
+        // values(),可以获得值，然后取下标就可以了
+        if(this.group == Group.BAD)
+            this.dir = Dir.values()[random.nextInt(4)];
+    }
+
     public void setDir(Dir dir) {
         this.dir = dir;
     }
     public void fire(){
         int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+
         //不能直接new 一个子弹出来，因为没有办法传递给tankframe中的bullet，因为直有tankframe才能画子弹
         // 面向对象，除了封装，还有引用
         tf.bullets.add(new Bullet(bX,bY,this.group,this.dir,this.tf));
+
     }
     public void die(){
         this.living = false;
