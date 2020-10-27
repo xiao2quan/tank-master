@@ -20,7 +20,7 @@ public class TankFrame extends Frame {
     List<Explode> explodes = new ArrayList<>();
 //    Explode e = new Explode(100,100,this);
 
-    static final int GAME_WIDTH = 1080,GAME_HEIGTH = 960;
+    static final int GAME_WIDTH = 1080,GAME_HEIGTH = 600;
 
     private int SPEED = 10;
     //这里自己就是一个窗口，把自己显示出来就行了

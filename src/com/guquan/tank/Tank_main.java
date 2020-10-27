@@ -11,8 +11,9 @@ public class Tank_main {
         //Frame f = new Frame();
         // 怎么把窗口显示出来，就需要调用这个构造方法
         TankFrame tf = new TankFrame();
+        int initTankCount = Integer.parseInt((String)PropertyMgr.get("initTankCount"));
         //初始化敌方tank
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < initTankCount; i++){
             tf.enemyTanks.add(new Tank(50 + i*60,200,Group.BAD, Dir.DOWN,tf));
 
         }
