@@ -7,6 +7,7 @@ public class Bullet {
     private Dir dir;
     private int x,y;
     private Group group = Group.BAD;
+    Rectangle rect = new Rectangle();
     public static int WIDTH = ResourceMgr.bulletD.getWidth(), HEIGHT = ResourceMgr.bulletD.getHeight();
     private boolean living = true;
     TankFrame tf = null;
@@ -17,6 +18,13 @@ public class Bullet {
         this.group = group;
         this.dir = dir;
         this.tf = tf;
+
+        //
+        rect.x = this.x;
+        rect.y = this.y;
+        rect.width = WIDTH;
+        rect.height = HEIGHT;
+
     }
 
     // 让Bullet自己来绘制自己
@@ -62,6 +70,8 @@ public class Bullet {
         }
         if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGTH)
             living = false;
+        rect.x = this.x;
+        rect.y = this.y;
 
     }
 
@@ -77,9 +87,7 @@ public class Bullet {
         if(this.group == tank.getGroup()) return;
         // TODO:用一个rect来记录子弹的位置，这里循环一次new一个rect，new出来太多了
         // 应该在子弹类和tank类里面，设置rect
-        Rectangle rectBullet = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
-        Rectangle rectTank = new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,Tank.HEIGHT);
-        if(rectBullet.intersects(rectTank)){
+        if(rect.intersects(tank.rectTank)){
             tank.die();
             this.die();
             int eX = tank.getX() + Tank.WIDTH/2 -Explode.WIDTH/2;

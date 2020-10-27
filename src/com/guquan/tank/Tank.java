@@ -4,6 +4,8 @@ import java.awt.*;
 import java.util.Random;
 
 public class Tank {
+    // 注意：要初始化，否则不报错，但是程序没法运行
+    public Rectangle rectTank = new Rectangle();
     //坦克应该有自己的属性
     private int x, y;
     private Dir dir = Dir.DOWN;
@@ -59,6 +61,13 @@ public class Tank {
         this.dir = dir;
         this.group = group;
         this.tf = tf;
+
+        rectTank.x = this.x;
+        rectTank.y = this.y;
+        rectTank.width = WIDTH;
+        rectTank.height = HEIGHT;
+
+
     }
     // 让tank自己来绘制自己
     public void paint(Graphics g){
@@ -106,11 +115,12 @@ public class Tank {
             default:
                 break;
         }
-
         // 发射子弹
         if(this.group == Group.BAD && random.nextInt(100) > 95) this.fire();
         if(this.group == Group.BAD && random.nextInt(100) > 95) randomDir();
         boundsCheck();
+        rectTank.x = this.x;
+        rectTank.y = this.y;
 
 
     }
@@ -120,8 +130,6 @@ public class Tank {
         if(this.y < 30) y = 30;
         if(this.x > TankFrame.GAME_WIDTH - Tank.WIDTH -2) x = TankFrame.GAME_WIDTH -  Tank.WIDTH -2;
         if(this.y > TankFrame.GAME_HEIGTH - Tank.HEIGHT -2 ) y = TankFrame.GAME_HEIGTH - Tank.HEIGHT -2;
-
-
     }
 
     private void randomDir(){
